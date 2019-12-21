@@ -39,7 +39,7 @@ DJANGO_APPS = [
 ]
 
 # 다른 사람이 만든 모듈을 import 할 곳
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = ["django_countries"]
 
 PROJECT_APPS = [
     "core.apps.CoreConfig",
