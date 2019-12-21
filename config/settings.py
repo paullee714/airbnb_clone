@@ -41,7 +41,11 @@ DJANGO_APPS = [
 # 다른 사람이 만든 모듈을 import 할 곳
 THIRD_PARTY_APPS = []
 
-PROJECT_APPS = ["users.apps.UsersConfig", "rooms.apps.RoomsConfig"]
+PROJECT_APPS = [
+    "core.apps.CoreConfig",
+    "users.apps.UsersConfig",
+    "rooms.apps.RoomsConfig",
+]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
 
