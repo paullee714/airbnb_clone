@@ -128,3 +128,10 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 AUTH_USER_MODEL = "users.User"  # 장고 기본 user 모델을 나의 user모델로 바꿈
+
+# media 저장
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+# media 루트에 접근하는 url ( 디렉터리와 달라도 된다)
+MEDIA_URL = "/media/"
+

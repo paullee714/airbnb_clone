@@ -53,7 +53,7 @@ class Photo(core_models.TimeStampedModel):
     """ Photo Model"""
 
     caption = models.CharField(max_length=80)
-    file = models.ImageField()
+    file = models.ImageField(upload_to="room_photos")
     room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
     ## 모델의 이름을 String으로 해서 처리하면 import 가 필요 없다.
     def __str__(self):
