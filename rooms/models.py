@@ -1,7 +1,10 @@
 from django.db import models
 from core import models as core_models
 from django_countries.fields import CountryField
-from users import models as user_models
+
+# from users import models as user_models
+# --> Model을 import 해서 직접 사용 할 수 있지만
+## 모델의 이름을 String으로 해서 처리하면 import 가 필요 없다.
 
 
 class AbstractItem(core_models.TimeStampedModel):
@@ -20,25 +23,41 @@ class AbstractItem(core_models.TimeStampedModel):
 class RoomType(AbstractItem):
     """ RoomType """
 
-    pass
+    class Meta:
+        verbose_name = "Room Type"
+        ordering = ["name"]
 
 
 class Amenity(AbstractItem):
     """ Amenity """
 
-    pass
+    class Meta:
+        verbose_name_plural = "Amenities"
 
 
 class Facility(AbstractItem):
     """ Facility """
 
-    pass
+    class Meta:
+        verbose_name_plural = "Facilities"
 
 
 class HouseRule(AbstractItem):
     """House Rule"""
 
-    pass
+    class Meta:
+        verbose_name = "House Rule"
+
+
+class Photo(core_models.TimeStampedModel):
+    """ Photo Model"""
+
+    caption = models.CharField(max_length=80)
+    file = models.ImageField()
+    room = models.ForeignKey("Room", on_delete=models.CASCADE)
+    ## 모델의 이름을 String으로 해서 처리하면 import 가 필요 없다.
+    def __str__(self):
+        return self.caption
 
 
 class Room(core_models.TimeStampedModel):
@@ -59,11 +78,11 @@ class Room(core_models.TimeStampedModel):
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
     # host는 다른 모델과 이어주어야 함
-    hosts = models.ForeignKey(user_models.User, on_delete=models.CASCADE)
-    room_type = models.ForeignKey(RoomType, on_delete=models.SET_NULL, null=True)
-    amenities = models.ManyToManyField(Amenity)
-    facility = models.ManyToManyField(Facility)
-    house_rules = models.ManyToManyField(HouseRule)
+    hosts = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
+    amenities = models.ManyToManyField("Amenity", blank=True)
+    facility = models.ManyToManyField("Facility", blank=True)
+    house_rules = models.ManyToManyField("HouseRule", blank=True)
 
     def __str__(self):
         return self.name
