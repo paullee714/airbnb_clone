@@ -8,7 +8,10 @@ from . import models
 class ItemAdmin(admin.ModelAdmin):
     """Item Admin Definition"""
 
-    pass
+    list_display = ("name", "used_by")
+
+    def used_by(self, obj):
+        return obj.rooms.count()
 
 
 @admin.register(models.Room)
@@ -33,6 +36,7 @@ class RoomAdmin(admin.ModelAdmin):
         ("Last Details", {"fields": ("hosts",)}),
     )
 
+    # admin 에서 보여지는 컬럼
     list_display = (
         "name",
         "country",
@@ -43,11 +47,18 @@ class RoomAdmin(admin.ModelAdmin):
         "beds",
         "bedrooms",
         "baths",
+        "count_amenities",
+        "count_photos",
         "check_in",
         "check_out",
         "instant_book",
+        "total_rating",
     )
 
+    # 정렬
+    # ordering = ("name", "price", "bedrooms")
+
+    # 우측 필터
     list_filter = (
         "instant_book",
         "hosts__superhost",
@@ -62,6 +73,16 @@ class RoomAdmin(admin.ModelAdmin):
     search_fields = ("city", "hosts__username")
 
     filter_horizontal = ("amenities", "facility", "house_rules")
+
+    # custom function
+    def count_amenities(self, obj):
+        return obj.amenities.count()
+
+    def count_photos(self, obj):
+        return obj.photos.count()
+
+    # custom label
+    # count_amenities.short_description = "hello sexy"
 
 
 @admin.register(models.Photo)
