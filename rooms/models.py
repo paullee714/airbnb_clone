@@ -91,6 +91,11 @@ class Room(core_models.TimeStampedModel):
     facility = models.ManyToManyField("Facility", related_name="rooms", blank=True)
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
 
+    # super()를 사용해, 기존 save 메서드에 추가적으로 나의 코드를 실행
+    def save(self, *args, **kwargs):
+        self.city = str.capitalize(self.city)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
