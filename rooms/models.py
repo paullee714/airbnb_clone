@@ -1,6 +1,7 @@
 from django.db import models
 from core import models as core_models
 from django_countries.fields import CountryField
+from django.urls import reverse
 
 # from users import models as user_models
 # --> Model을 import 해서 직접 사용 할 수 있지만
@@ -98,6 +99,11 @@ class Room(core_models.TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    # absolute url
+    # absolute url이 적용되면 해당 url로 이동 됨
+    def get_absolute_url(self):
+        return reverse("rooms:detail", kwargs={"pk": self.pk})
 
     # 전체 리뷰의 평균
     def total_rating(self):
