@@ -1,6 +1,6 @@
-# from math import ceil
-# from django.shortcuts import render, redirect
-# from django.core.paginator import Paginator
+from math import ceil
+from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from . import models
 from django.views.generic import ListView
 from django.utils import timezone
@@ -31,3 +31,7 @@ class HomeView(ListView):
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
     #     return context
+
+
+def room_detail(request, pk):
+    return render(request, "rooms/detail.html")
