@@ -4,7 +4,7 @@ from math import ceil
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from . import models
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.utils import timezone
 
 # 함수형 뷰
@@ -35,11 +35,17 @@ class HomeView(ListView):
     #     return context
 
 
-def room_detail(request, pk):
-    try:
-        room = models.Room.objects.get(pk=pk)
-        return render(request, "rooms/detail.html", {"room": room})
-    except models.Room.DoesNotExist:
-        # return redirect(reverse("core:home"))
-        raise Http404()
+# function based view
+# def room_detail(request, pk):
+#     try:
+#         room = models.Room.objects.get(pk=pk)
+#         return render(request, "rooms/detail.html", {"room": room})
+#     except models.Room.DoesNotExist:
+#         # return redirect(reverse("core:home"))
+#         raise Http404()
 
+
+class RoomDetail(DetailView):
+    """ RoomDetail Definition """
+
+    model = models.Room
