@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block page_name %}{% endblock page_name %} | Paul-BNB</title>
+    <title>{% block page_title %}{% endblock page_title %} | Paul-BNB</title>
 </head>
 <body>
-{% include "partial/header.html" %}
-
+<header>
+    {% include "partial/header.html" %}
+    {% block searh-bar %}
+        <form method="get" action="{% url "rooms:search" %}">
+            <input name="city" placeholder="Search by City" />
+        </form>
+    {% endblock searh-bar %}
+</header>
     {% block content %}{% endblock content %}
 
 {% include "partial/footer.html" %}
