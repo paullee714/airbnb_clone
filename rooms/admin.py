@@ -39,7 +39,7 @@ class RoomAdmin(admin.ModelAdmin):
             "More About the Space",
             {
                 "classes": ("collapse",),
-                "fields": ("amenities", "facility", "house_rules"),
+                "fields": ("amenities", "facilities", "house_rules"),
             },
         ),
         ("Last Details", {"fields": ("hosts",)}),
@@ -52,6 +52,7 @@ class RoomAdmin(admin.ModelAdmin):
         "city",
         "price",
         "address",
+        "room_type",
         "guests",
         "beds",
         "bedrooms",
@@ -73,7 +74,7 @@ class RoomAdmin(admin.ModelAdmin):
         "hosts__superhost",
         "room_type",
         "amenities",
-        "facility",
+        "facilities",
         "house_rules",
         "city",
         "country",
@@ -85,7 +86,7 @@ class RoomAdmin(admin.ModelAdmin):
 
     search_fields = ("city", "hosts__username")
 
-    filter_horizontal = ("amenities", "facility", "house_rules")
+    filter_horizontal = ("amenities", "facilities", "house_rules")
 
     # custom function
     def count_amenities(self, obj):

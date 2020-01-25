@@ -89,7 +89,7 @@ class Room(core_models.TimeStampedModel):
         "RoomType", related_name="rooms", on_delete=models.SET_NULL, null=True
     )
     amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
-    facility = models.ManyToManyField("Facility", related_name="rooms", blank=True)
+    facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
 
     # super()를 사용해, 기존 save 메서드에 추가적으로 나의 코드를 실행
