@@ -25,6 +25,7 @@ urlpatterns = [
     # ""으로 request가 올 때, core.urls로 전달
     path("", include("core.urls", namespace="core")),
     path("rooms/", include("rooms.urls", namespace="rooms")),
+    path("users/", include("users.urls", namespace="users")),
     path("admin/", admin.site.urls),
 ]
 

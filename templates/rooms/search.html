@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block page_title %}
-    Search
+Search
 {% endblock page_title %}
 
 {% block searh-bar %}
@@ -9,17 +9,17 @@
 
 {% block content %}
 
-    <h2>Search!</h2>
+<h2>Search!</h2>
 
-    <form method="get" action="{% url "rooms:search" %}">
-        {{form.as_p}}
-        <button>Search</button>
-    </form>
+<form method="get" action="{% url "rooms:search" %}">
+    {{form.as_p}}
+    <button>Search</button>
+</form>
 
-    <h3> Results </h3>
-    {% for room in rooms %}
-        <h3>{{room.name}}</h3>
-    {% endfor %}
+<h3> Results </h3>
+{% for room in rooms %}
+<h3>{{room.name}}</h3>
+{% endfor %}
+
 
 {% endblock content %}
-
