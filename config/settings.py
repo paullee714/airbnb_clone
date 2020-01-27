@@ -135,3 +135,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 # media 루트에 접근하는 url ( 디렉터리와 달라도 된다)
 MEDIA_URL = "/media/"
 
+
+## Email - Mailgun API Configuration
+EMAIL_HOST = "smtp.mailgun.org"
+EMAIL_PORT = "587"
+EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
+EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
+
+print(os.environ.get("MAILGUN_USERNAME"), os.environ.get("MAILGUN_PASSWORD"))
+
