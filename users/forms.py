@@ -44,3 +44,16 @@ class SignUpForm(forms.Form):
             raise forms.ValidationError("Password confirmation does not match")
         else:
             return password
+
+    ##Signup 이후 로그인할 수 있도록 만들기
+    def save(self):
+        first_name = self.cleaned_data("")
+        last_name = self.cleaned_data("")
+        email = self.cleaned_data("")
+        password = self.cleaned_data("")
+        password1 = self.cleaned_data("")
+        user = models.User.objects.create_user(email, email, password)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+
