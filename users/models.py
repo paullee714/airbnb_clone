@@ -1,5 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.core.mail import send_mail
+from django.conf import settings
+from django.utils.html import strip_tags
+
+import uuid
 
 # Create your models here.
 
@@ -39,3 +44,21 @@ class User(AbstractUser):
         choices=CURRENCY_CHOICES, max_length=3, blank=True, default=CURRENCY_KRW
     )
     superhost = models.BooleanField(default=False)
+    email_verified = models.BooleanField(default=False)
+    email_secret = models.CharField(max_length=120, default="", blank=True)
+
+    def verify_email(self):
+        if self.email_verified is False:
+            secret = uuid.uuid4().hex[:20]
+            self.email_secret = secret
+            html_message = f'To Verify Account, Click <a href="http://127.0.0.1:8000/users/verify/{secret}">Here</a>'
+            send_mail(
+                "verify paul-bnb Account",
+                strip_tags(html_message),
+                settings.EMAIL_FROM,
+                [self.email],
+                fail_silently=False,
+                html_message=html_message,
+            )
+
+        return
