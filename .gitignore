@@ -133,4 +133,4 @@ dmypy.json
 .DS_Store
 uploads/
 
-node_modules
+node_modules/
