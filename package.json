@@ -1,0 +1,22 @@
+{
+  "name": "airbnb_clone",
+  "version": "1.0.0",
+  "description": "Django 2.2.5, Python3 aribnb clone study",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paullee714/airbnb_clone.git"
+  },
+  "scripts": {
+    "css": "gulp"
+  },
+  "homepage": "https://github.com/paullee714/airbnb_clone#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.7.4",
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.1",
+    "tailwindcss": "^1.1.4"
+  }
+}
