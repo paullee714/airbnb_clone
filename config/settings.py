@@ -127,6 +127,9 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+# static 파일을위한 경로세팅
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
 AUTH_USER_MODEL = "users.User"  # 장고 기본 user 모델을 나의 user모델로 바꿈
 
 # media 저장
