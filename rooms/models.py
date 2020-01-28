@@ -92,13 +92,13 @@ class Room(core_models.TimeStampedModel):
     facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
 
+    def __str__(self):
+        return self.name
+
     # super()를 사용해, 기존 save 메서드에 추가적으로 나의 코드를 실행
     def save(self, *args, **kwargs):
         self.city = str.capitalize(self.city)
         super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
 
     # absolute url
     # absolute url이 적용되면 해당 url로 이동 됨
@@ -114,3 +114,8 @@ class Room(core_models.TimeStampedModel):
                 all_ratings += review.rating_average()
             return round(all_ratings / len(all_reviews), 2)
         return 0
+
+    # 방 사진 가져오기
+    def first_photo(self):
+        (photo,) = self.photos.all()[:1]
+        return photo.file.url
