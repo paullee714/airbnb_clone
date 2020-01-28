@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from . import forms, models
 from django.contrib.auth import authenticate, login, logout
+from django.core.files.base import ContentFile
 
 
 # Django Login View
@@ -210,9 +211,9 @@ def kakao_callback(request):
         email = kakao_account.get("email", None)
         if email is None:
             raise KakaoException()
-        properties = profile_json.get("properties")
-        nickname = properties.get("nickname")
-        profile_image = properties.get("profile_image")
+        profile = kakao_account.get("profile")
+        nickname = profile.get("nickname")
+        profile_image = profile.get("profile_image_url")
         try:
             user = models.User.objects.get(email=email)
             if user.login_method != models.User.LOGIN_KAKAO:
@@ -227,6 +228,12 @@ def kakao_callback(request):
             )
             user.set_unusable_password()
             user.save()
+            if profile_image is not None:
+                photo_request = requests.get(profile_image)
+                user.avatar.save(
+                    f"{nickname}-avatar", ContentFile(photo_request.content)
+                )
+                # user.save()
         login(request, user)
         return redirect(reverse("core:home"))
     except KakaoException:
