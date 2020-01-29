@@ -18,6 +18,10 @@ class LoginForm(forms.Form):
             if user.check_password(password):
                 return self.cleaned_data
             else:
+                ##  self.add_error(A,B) A 자리에 "password"가 있다면 해당 필드에 에러를 추가 해 주는 것
+                ##  General Error를 추가하고 싶다면 self.add_error(A,B) A 자리에 None
+                # self.add_error("password", forms.ValidationError("Password is wrong"))
+                # A가 None이 된다면 "none_field_error"이 되는것이니 따로 작성해 주어야 한다
                 self.add_error("password", forms.ValidationError("Password is wrong"))
         except models.User.DoesNotExist:
             self.add_error("email", forms.ValidationError("User Does Not Exist"))
@@ -80,6 +84,16 @@ class SignUpForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"}),
         # label="Confirm Password",
     )
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        try:
+            models.User.objects.get(email=email)
+            raise forms.ValidationError(
+                "That email is already taken", code="existing_user"
+            )
+        except models.User.DoesNotExist:
+            return email
 
     def clean_password1(self):
         password = self.cleaned_data.get("password")

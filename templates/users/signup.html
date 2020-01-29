@@ -10,24 +10,40 @@ Sign Up
 {% block content %}
 <div class="container lg:w-5/12 md:w-1/2 xl:w-1/4 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
     {% include 'partial/social_login.html' %}
-    <form method="POST" action="{% url "users:signup" %}">
+    <form method="POST" action="{% url "users:signup" %}" class="w-full">
         {% csrf_token %}
         <!-- {{form.as_p}} -->
 
-        {{form.first_name}}
-        {{form.first_name.errors}}
+        <!-- 에러를 다량으로 추가하기 좋다 -->
+        <!-- {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <span class="text-red-700 font-medium text-sm">{{error}}</span>
+        {% endfor %}
+        {% endif %} -->
 
-        {{form.last_name}}
-        {{form.last_name.errors}}
 
-        {{form.email}}
-        {{form.email.errors}}
 
-        {{form.password}}
-        {{form.password.errors}}
+        {% if form.non_field_errors %}
 
-        {{form.password1}}
-        {{form.password1.errors}}
+        {% for error in form.none_field_errors %}
+        <span class="text-red-700 font-medium text-sm">{{error}}</span>
+        {% endfor %}
+
+        {% endif %}
+
+
+
+        {% for field in form %}
+        <div class="input w-full {% if field.errors %} has_error {% endif %}">
+            {{field}}
+            <!-- {{form.first_name.errors}} -->
+            {% if field.errors %}
+            {% for error in field.errors %}
+            <span class="text-red-700 font-medium text-sm">{{error}}</span>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
 
         <button class="btn bg-red-500 text-white">Sign Up</button>
 
