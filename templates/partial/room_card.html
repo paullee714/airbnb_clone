@@ -1,25 +1,27 @@
 <!-- {% comment %} <a href="/rooms/{{room.pk}}"> {% endcomment %} -->
 
 <div class="w-1/4 mb-10 px-2 overflow-hidden">
-    <div class="w-full h-64 bg-cover bg-center rounded-lg mb-2" style="background-image: url({{room.first_photo}});">
-
-    </div>
-
-    <div class="flex justify-between mb-2 truncate">
-        <div class="w-4/5 overflow-hidden flex">
-            {% if room.hosts.superhost %}
-            <span
-                class="uppercase mr-2 font-medium text-xs border border-black text-black rounded py-px px-1">superhost</span>
-            {% endif %}
-            <span class="text-sm text-gray-600 block truncate">{{room.city}}, {{room.country.name}}</span>
+    <a href="{% url 'rooms:detail' room.pk%}">
+        <div class="w-full h-64 bg-cover bg-center rounded-lg mb-2"
+            style="background-image: url({{room.first_photo}});">
         </div>
-        <span class="text-sm flex items-center">
 
-            {% if room.total_rating %}
-            <i class="fas fa-star text-red-500 text-xs mr-px"></i> {{room.total_rating}}
-            {% endif %}
+        <div class="flex justify-between mb-2 truncate">
+            <div class="w-4/5 overflow-hidden flex">
+                {% if room.hosts.superhost %}
+                <span
+                    class="uppercase mr-2 font-medium text-xs border border-black text-black rounded py-px px-1">superhost</span>
+                {% endif %}
+                <span class="text-sm text-gray-600 block truncate">{{room.city}}, {{room.country.name}}</span>
+            </div>
+            <span class="text-sm flex items-center">
 
-        </span>
-    </div>
-    <span class="text-black w-11/12 block truncate">{{room.name}}</span>
+                {% if room.total_rating %}
+                <i class="fas fa-star text-red-500 text-xs mr-px"></i> {{room.total_rating}}
+                {% endif %}
+
+            </span>
+        </div>
+        <span class="text-black w-11/12 block truncate">{{room.name}}</span>
+    </a>
 </div>
