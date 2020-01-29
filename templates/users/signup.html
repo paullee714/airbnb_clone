@@ -24,25 +24,13 @@ Sign Up
 
 
         {% if form.non_field_errors %}
-
         {% for error in form.none_field_errors %}
         <span class="text-red-700 font-medium text-sm">{{error}}</span>
         {% endfor %}
-
         {% endif %}
 
-
-
         {% for field in form %}
-        <div class="input w-full {% if field.errors %} has_error {% endif %}">
-            {{field}}
-            <!-- {{form.first_name.errors}} -->
-            {% if field.errors %}
-            {% for error in field.errors %}
-            <span class="text-red-700 font-medium text-sm">{{error}}</span>
-            {% endfor %}
-            {% endif %}
-        </div>
+        {% include 'partial/form_input.html' with field=field %}
         {% endfor %}
 
         <button class="btn bg-red-500 text-white">Sign Up</button>
