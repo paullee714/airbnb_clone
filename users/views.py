@@ -156,7 +156,7 @@ def github_callbak(request):
                             username=email,
                             bio=bio,
                             login_method=models.User.LOGIN_GITHUB,
-                            mail_verified=True,
+                            email_verified=True,
                         )
                         user.set_unusable_password()
                         user.save()
