@@ -20,9 +20,15 @@
 }
 
 input {
-    @apply w-full text-center rounded-sm py-5 text-lg font-light mb-2 text-left border border-gray-600 px-5 ;
+    @apply w-full text-center rounded-sm py-5 text-lg font-light text-left border border-gray-600 px-5 ;
     &:focus {
         @apply outline-none border-teal-500;
+    }
+}
+
+form {
+    input{
+        @apply mb-2;
     }
 }
 
