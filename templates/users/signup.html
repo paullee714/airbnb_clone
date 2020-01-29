@@ -10,32 +10,7 @@ Sign Up
 {% block content %}
 <div class="container lg:w-5/12 md:w-1/2 xl:w-1/4 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
     {% include 'partial/social_login.html' %}
-    <form method="POST" action="{% url "users:signup" %}" class="w-full">
-        {% csrf_token %}
-        <!-- {{form.as_p}} -->
-
-        <!-- 에러를 다량으로 추가하기 좋다 -->
-        <!-- {% if form.non_field_errors %}
-        {% for error in form.non_field_errors %}
-        <span class="text-red-700 font-medium text-sm">{{error}}</span>
-        {% endfor %}
-        {% endif %} -->
-
-
-
-        {% if form.non_field_errors %}
-        {% for error in form.none_field_errors %}
-        <span class="text-red-700 font-medium text-sm">{{error}}</span>
-        {% endfor %}
-        {% endif %}
-
-        {% for field in form %}
-        {% include 'partial/form_input.html' with field=field %}
-        {% endfor %}
-
-        <button class="btn bg-red-500 text-white">Sign Up</button>
-
-    </form>
+    {% include 'mixins/auth/auth_form.html' with form=form cta="Sign Up"%}
     <div class="mt-5">
         <span class="mr-2">have an Account? </span>
         <a href="{% url 'users:login' %}" class="text-teal-500 font-medium">Log in</a>

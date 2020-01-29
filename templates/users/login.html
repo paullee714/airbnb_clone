@@ -10,26 +10,7 @@ Login
 {% block content %}
 <div class="container lg:w-5/12 md:w-1/2 xl:w-1/4 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
     {% include 'partial/social_login.html' %}
-    <form method="POST" action="{% url "users:login" %}" class="w-full">
-        {% csrf_token %}
-        <!-- {{form.as_p}} -->
-        <!-- <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password"> -->
-        <!-- {{form.email}}
-        {{form.password}} -->
-        {% if form.non_field_errors %}
-        {% for error in form.none_field_errors %}
-        <span class="text-red-700 font-medium text-sm">{{error}}</span>
-        {% endfor %}
-        {% endif %}
-
-        {% for field in form %}
-        {% include 'partial/form_input.html' with field=field %}
-        {% endfor %}
-
-        <button class="btn bg-red-500 text-white">Login</button>
-
-    </form>
+    {% include 'mixins/auth/auth_form.html' with form=form cta="Login"%}
     <div class="mt-5">
         <span class="mr-2">Don't have any account? </span>
         <a href="{% url 'users:signup' %}" class="text-teal-500 font-medium">Sign Up</a>
