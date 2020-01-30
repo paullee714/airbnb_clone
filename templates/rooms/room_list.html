@@ -16,16 +16,15 @@ Home
 
     <!-- <div class="flex flex-wrap -mx-40"> -->
     <div class="flex flex-wrap -mx-40 mb-10">
-        {% for room in rooms %}
+        {% for room in rooms  %}
         {% include 'mixins/room_card.html' with room=room %}
-        {% endfor%}
+        {% endfor %}
     </div>
 
-    <div class="flex justify-center items-center mx-auto container">
-
-        {% if page_obj.has_previous%}
+    <div class="flex items-center justify-center mx-auto container">
+        {% if page_obj.has_previous %}
         <a href="?page={{page_obj.previous_page_number}}" class="text-teal-500">
-            <i class="fas fa-chevron-left fa-lg"></i>
+            <i class="fas fa-arrow-left fa-lg"></i>
         </a>
         {% endif %}
 
@@ -33,9 +32,10 @@ Home
 
         {% if page_obj.has_next  %}
         <a href="?page={{page_obj.next_page_number}}" class="text-teal-500">
-            <i class=" fas fa-chevron-right fa-lg"></i>
+            <i class="fas fa-arrow-right fa-lg"></i>
         </a>
         {% endif %}
+
 
     </div>
 

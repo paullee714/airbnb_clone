@@ -10,7 +10,7 @@ from django.core.files.base import ContentFile
 
 
 # Django Login View
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView, UpdateView
 
 # Create your views here.
 
@@ -250,3 +250,36 @@ def kakao_callback(request):
     except KakaoException as e:
         messages.error(request, e)
         return redirect(reverse("users:login"))
+
+
+##user Profile View
+class UserProfileView(DetailView):
+
+    model = models.User
+    context_object_name = "user_obj"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        return context
+
+
+# user Profile Update
+class UpdateProfileView(UpdateView):
+    model = models.User
+    template_name = "users/update-profile.html"
+    fields = (
+        "first_name",
+        "last_name",
+        "avatar",
+        "gender",
+        "bio",
+        "birthdate",
+        "language",
+        "currency",
+        "superhost",
+    )
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
