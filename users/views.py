@@ -55,7 +55,14 @@ from django.views.generic import FormView, DetailView, UpdateView
 class LoginView(mixin.LoggedOutOnlyView, FormView):
     template_name = "users/login.html"
     form_class = forms.LoginForm
-    success_url = reverse_lazy("core:home")
+    # success_url = reverse_lazy("core:home")
+
+    def get_success_url(self):
+        next_arg = self.request.GET.get("next")
+        if next_arg is not None:
+            return next_arg
+        else:
+            return reverse("core:home")
 
     def form_valid(self, form):
         email = form.cleaned_data.get("email")
@@ -268,7 +275,7 @@ class UserProfileView(DetailView):
 
 
 # user Profile Update
-class UpdateProfileView(SuccessMessageMixin, UpdateView):
+class UpdateProfileView(mixin.LoggedInOnlyView, SuccessMessageMixin, UpdateView):
     model = models.User
     template_name = "users/update-profile.html"
     fields = (
@@ -295,7 +302,12 @@ class UpdateProfileView(SuccessMessageMixin, UpdateView):
 
 
 # update Password
-class UpdatePasswordView(SuccessMessageMixin, PasswordChangeView):
+class UpdatePasswordView(
+    mixin.LoggedInOnlyView,
+    mixin.EmailLoginOnlyView,
+    SuccessMessageMixin,
+    PasswordChangeView,
+):
     template_name = "users/update-password.html"
     success_message = "Password Updated!"
 
